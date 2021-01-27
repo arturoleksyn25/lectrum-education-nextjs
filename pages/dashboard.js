@@ -1,4 +1,5 @@
 import {getFile} from 'helpers/getFile';
+import {setCurrentDate} from "helpers/setCurrentDate";
 import {withUser} from 'utils/withUser';
 
 export const getServerSideProps = withUser(async ({isGuest, isFriend, isFamily}) => {
@@ -7,9 +8,9 @@ export const getServerSideProps = withUser(async ({isGuest, isFriend, isFamily})
   const cars = isFamily ? await getFile('public/cars.json') : null;
 
   return {
-    news,
-    discounts,
-    cars
+    news: setCurrentDate(news),
+    discounts: setCurrentDate(discounts),
+    cars: setCurrentDate(cars)
   }
 });
 
