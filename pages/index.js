@@ -1,26 +1,26 @@
+import {initializeStore} from 'init/store';
+import {initialDispatcher} from 'init/initialDispatcher';
+import {userActions} from 'bus/user/actions';
 import {withUser} from 'utils/withUser';
+import Message from "components/Message";
+import BaseLayout from "components/layouts/BaseLayout";
 
-export const getServerSideProps = withUser();
+export const getServerSideProps = withUser(async (ctx, user) => {
+  const store = await initialDispatcher(ctx, initializeStore());
+  store.dispatch(userActions.fillUser(user));
 
-const Home = ({isGuest, isFriend, isFamily}) => {
-  const guestJSX = isGuest && (
-    <h1>Приветствуем тебя странник!</h1>
-  )
+  const initialReduxState = store.getState();
 
-  const friendJSX = isFriend && (
-    <h1>Приветствуем тебя друг!</h1>
-  )
+  return {
+    initialReduxState
+  }
+});
 
-  const familyJSX = isFamily && (
-    <h1>Добро пожаловать в семье!</h1>
-  )
-
+const Home = () => {
   return (
-    <div>
-      {guestJSX}
-      {friendJSX}
-      {familyJSX}
-    </div>
+    <BaseLayout>
+      <Message/>
+    </BaseLayout>
   )
 }
 
