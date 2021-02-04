@@ -1,6 +1,7 @@
 import nookies from "nookies";
 import fs from 'fs';
 
+import {parseUserType} from 'helpers/parseUserType';
 import {renderId} from "helpers/renderId";
 import {getFile} from "helpers/getFile";
 
@@ -17,16 +18,17 @@ export const withUser = (getData) => async (ctx) => {
       : file.map(user => user.userId === userId ? {userId, visitCounts} : user)),
     () => {}
   )
-  const props = {
-    isGuest: visitCounts < 3,
-    isFriend: visitCounts >= 3 && visitCounts < 5,
-    isFamily: visitCounts >= 5
+
+  const user = {
+    userId,
+    visitCounts,
+    userType: parseUserType(visitCounts)
   }
-  const data = getData ? await getData(props) : {};
+
+  const data = getData ? await getData(ctx, user) : {};
 
   return {
     props: {
-      ...props,
       ...data
     }
   }

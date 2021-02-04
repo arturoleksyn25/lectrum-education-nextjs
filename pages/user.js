@@ -1,9 +1,9 @@
-import {initializeStore} from 'init/store';
-import {initialDispatcher} from 'init/initialDispatcher';
-import {userActions} from 'bus/user/actions';
-import {withUser} from 'utils/withUser';
-import Message from "components/Message";
+import {initialDispatcher} from "init/initialDispatcher";
+import {initializeStore} from "init/store";
+import {userActions} from "bus/user/actions";
+import User from "components/User";
 import BaseLayout from "components/layouts/BaseLayout";
+import {withUser} from "utils/withUser";
 
 export const getServerSideProps = withUser(async (ctx, user) => {
   const store = await initialDispatcher(ctx, initializeStore());
@@ -16,12 +16,12 @@ export const getServerSideProps = withUser(async (ctx, user) => {
   }
 });
 
-const Home = () => {
+const UserPage = () => {
   return (
     <BaseLayout>
-      <Message/>
+      <User/>
     </BaseLayout>
   )
 }
 
-export default Home;
+export default UserPage;
