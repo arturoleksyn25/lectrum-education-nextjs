@@ -1,7 +1,8 @@
+import {discountsActions} from "bus/discounts/actions";
+import {selectDiscounts} from "bus/discounts/selectors";
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
 import {getFile} from "helpers/getFile";
-import {discountsActions} from "bus/discounts/actions";
 import BackLayout from "components/layouts/BackLayout";
 import Discount from "components/Discount";
 import {setCurrentDate} from "helpers/setCurrentDate";
@@ -17,7 +18,12 @@ export const getServerSideProps = withUser(async (ctx, user) => {
   }
 
   store.dispatch(discountsActions.fillDiscounts(setCurrentDate(discounts)));
-  const initialReduxState = store.getState();
+  const initialReduxState = {
+    discounts: {
+      list: selectDiscounts(store.getState())
+    }
+  };
+
 
   return {
     initialReduxState

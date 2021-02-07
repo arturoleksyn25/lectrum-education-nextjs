@@ -1,5 +1,7 @@
 import {useRouter} from 'next/router';
 
+import styles from './layout.module.scss';
+
 const BackLayout = ({children}) => {
   const router = useRouter();
 
@@ -8,7 +10,7 @@ const BackLayout = ({children}) => {
   }
 
   return (
-    <div>
+    <div className={styles.content}>
       <button onClick={handleClick}>Go Back</button>
       {children}
     </div>

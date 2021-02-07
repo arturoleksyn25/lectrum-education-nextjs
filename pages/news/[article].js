@@ -2,6 +2,7 @@ import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
 import {getFile} from "helpers/getFile";
 import {newsActions} from "bus/news/actions";
+import {selectNews} from "bus/news/selectors";
 import BackLayout from "components/layouts/BackLayout";
 import Article from "components/Article";
 import {setCurrentDate} from "helpers/setCurrentDate";
@@ -17,7 +18,11 @@ export const getServerSideProps = withUser(async (ctx) => {
   }
 
   store.dispatch(newsActions.fillNews(setCurrentDate(news)));
-  const initialReduxState = store.getState();
+  const initialReduxState = {
+    news: {
+      list: selectNews(store.getState())
+    }
+  };
 
   return {
     initialReduxState

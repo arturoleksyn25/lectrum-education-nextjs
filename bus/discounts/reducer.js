@@ -1,7 +1,7 @@
 import { types } from "./types";
 
 const initialState = {
-  discounts: []
+  list: []
 };
 
 export const discountsReducer = (
@@ -10,7 +10,7 @@ export const discountsReducer = (
 ) => {
   switch (type) {
     case types.FILL_DISCOUNTS:
-      return {...state, discounts: payload};
+      return {...state, list: payload};
     default:
       return state;
   }

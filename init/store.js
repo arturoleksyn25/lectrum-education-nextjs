@@ -1,4 +1,5 @@
 // Core
+import * as R from 'ramda';
 import { useMemo } from 'react';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
@@ -31,11 +32,17 @@ const bindMiddleware = (middleware) => {
   return composeWithDevTools(applyMiddleware(...middleware));
 }
 
-export const initStore = (preloadedState = {}) => {
+export const initStore = (preloadedState) => {
+  const defaultState = preloadedState ? createStore(rootReducer).getState() : {};
+  const currentState = R.mergeDeepRight(
+    defaultState,
+    preloadedState,
+  );
+
   const sagaMiddleware = createSagaMiddleware();
   const initedStore = createStore(
     rootReducer,
-    preloadedState,
+    currentState,
     bindMiddleware([ sagaMiddleware ]),
   );
 
@@ -44,14 +51,15 @@ export const initStore = (preloadedState = {}) => {
   return initedStore;
 };
 
+
 export const initializeStore = (preloadedState = {}) => {
   let initializedStore = store || initStore(preloadedState);
 
   if (preloadedState && store) {
-    initializedStore = initStore({
-      ...preloadedState,
-      ...store.getState(),
-    });
+    initializedStore = initStore(R.mergeDeepRight(
+      store.getState(),
+      preloadedState
+    ));
 
     store = undefined;
   }
@@ -71,3 +79,4 @@ export const useStore = (initialState = {}) => {
   return useMemo(
     () => initializeStore(initialState), [ initialState ])
 };
+

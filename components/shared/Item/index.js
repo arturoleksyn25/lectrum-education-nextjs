@@ -1,17 +1,16 @@
-const Item = ({dateOfReceiving, content}) => {
+import Link from "next/link";
+
+import styles from './item.module.scss';
+
+const Item = ({dateOfReceiving, content, id, type}) => {
   return (
-    <div
-      className={'block'}>
+    <div className={styles.block}>
       <span>{dateOfReceiving}</span>
-      <p>{content}</p>
-      <style>{`
-        .block {
-          border-bottom: 1px solid;
-        }
-        span {
-          font-size: 12px;
-        }
-      `}</style>
+      <Link href={`/${type}/${id}`}>
+        <a>
+          {content}
+        </a>
+      </Link>
     </div>
   )
 }

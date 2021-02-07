@@ -1,7 +1,8 @@
+import {carsActions} from "bus/cars/actions";
+import {selectCars} from "bus/cars/selectors";
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
 import {getFile} from "helpers/getFile";
-import {carsActions} from "bus/cars/actions";
 import BackLayout from "components/layouts/BackLayout";
 import Car from "components/Car";
 import {setCurrentDate} from "helpers/setCurrentDate";
@@ -17,7 +18,11 @@ export const getServerSideProps = withUser(async (ctx, user) => {
   }
 
   store.dispatch(carsActions.fillCars(setCurrentDate(cars)));
-  const initialReduxState = store.getState();
+  const initialReduxState = {
+    cars: {
+      list: selectCars(store.getState())
+    }
+  };
 
   return {
     initialReduxState

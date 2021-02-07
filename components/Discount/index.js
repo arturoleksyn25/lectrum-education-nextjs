@@ -1,14 +1,18 @@
 import {useSelector} from "react-redux";
 import {useRouter} from 'next/router';
 
+import {selectDiscounts} from 'bus/discounts/selectors';
 import Item from "components/shared/Item";
 
 const Discount = () => {
   const {query: {discount}} = useRouter();
-  const {discounts} = useSelector((state) => state);
+  const discounts = useSelector(selectDiscounts);
 
-  const DiscountJSX = discounts.discounts && (
-    <Item {...discounts.discounts.find(item => item.id === discount)}/>
+  const DiscountJSX = discounts && (
+    <Item
+      type={'discounts'}
+      {...discounts.find(item => item.id === discount)}
+    />
   )
 
   return (

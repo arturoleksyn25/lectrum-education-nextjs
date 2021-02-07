@@ -1,14 +1,21 @@
 import {useSelector} from "react-redux";
 
+import {selectDiscounts} from 'bus/discounts/selectors';
 import Item from 'components/shared/Item';
 
 const Discounts = () => {
-  const {discounts} = useSelector((state) => state);
+  const discounts = useSelector(selectDiscounts);
 
   return (
     <div>
       <h1>Discounts</h1>
-      {discounts.discounts.map(item => <Item key={item.id} {...item}/>)}
+      {discounts.map(item => (
+        <Item
+          key={item.id}
+          type={'discounts'}
+          {...item}
+        />
+      ))}
     </div>
   )
 }
