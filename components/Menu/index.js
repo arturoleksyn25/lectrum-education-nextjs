@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
+import styles from './menu.module.scss';
+
 const menuRoutes = [{
   href: '/',
   title: 'Home'
@@ -20,24 +22,15 @@ const Menu = () => {
       <Link
         key={index}
         href={href}>
-        <a style={{color: pathname === href ? 'gray' : 'blue'}}>{title}</a>
+        <a className={pathname === href ? styles.active : null}>{title}</a>
       </Link>
     )
   }
 
 
   return (
-    <div className={'menu'}>
+    <div className={styles.menu}>
       {menuRoutes.map((item, index) => renderLink({...item}, index))}
-      <style>{`
-        .menu {
-          display: flex
-        }      
-        a {
-          margin: 0 20px;
-          text-decoration: none;
-        }
-      `}</style>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
 import {newsActions} from "bus/news/actions";
+import {selectNews} from "bus/news/selectors";
 import BaseLayout from "components/layouts/BaseLayout";
 import News from "components/News";
 import {withUser} from "utils/withUser";
@@ -12,7 +13,12 @@ export const getServerSideProps = withUser(async (ctx) => {
   const news = await getFile('public/news.json');
 
   store.dispatch(newsActions.fillNews(setCurrentDate(news)));
-  const initialReduxState = store.getState();
+
+  const initialReduxState = {
+    news: {
+      list: selectNews(store.getState())
+    }
+  };
 
   return {
     initialReduxState

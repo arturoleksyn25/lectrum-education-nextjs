@@ -1,3 +1,6 @@
+import {discountsActions} from "bus/discounts/actions";
+import {selectDiscounts} from "bus/discounts/selectors";
+
 import BaseLayout from "components/layouts/BaseLayout";
 import Discounts from "components/Discounts";
 import {withUser} from "utils/withUser";
@@ -6,7 +9,6 @@ import {initializeStore} from "init/store";
 import {getFile} from "helpers/getFile";
 import {setCurrentDate} from "helpers/setCurrentDate";
 import {redirectTo} from "helpers/redirectTo";
-import {discountsActions} from "bus/discounts/actions";
 
 export const getServerSideProps = withUser(async (ctx, user) => {
   const store = await initialDispatcher(ctx, initializeStore());
@@ -16,9 +18,13 @@ export const getServerSideProps = withUser(async (ctx, user) => {
   }
 
   const discounts = await getFile('public/discounts.json');
-
   store.dispatch(discountsActions.fillDiscounts(setCurrentDate(discounts)));
-  const initialReduxState = store.getState();
+
+  const initialReduxState = {
+    discounts: {
+      list: selectDiscounts(store.getState())
+    }
+  };
 
   return {
     initialReduxState

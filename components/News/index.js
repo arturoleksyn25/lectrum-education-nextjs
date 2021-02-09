@@ -1,14 +1,21 @@
 import {useSelector} from "react-redux";
 
+import {selectNews} from 'bus/news/selectors';
 import Item from 'components/shared/Item';
 
 const News = () => {
-  const {news} = useSelector((state) => state);
+  const news = useSelector(selectNews);
 
   return (
     <div>
       <h1>News</h1>
-      {news.news.map(item => <Item key={item.id} {...item}/>)}
+      {news.map(item => (
+        <Item
+          key={item.id}
+          type={'news'}
+          {...item}
+        />
+      ))}
     </div>
   )
 }

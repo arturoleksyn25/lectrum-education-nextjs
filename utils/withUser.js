@@ -6,11 +6,15 @@ import {renderId} from "helpers/renderId";
 import {getFile} from "helpers/getFile";
 
 export const withUser = (getData) => async (ctx) => {
-  const userId = +nookies.get(ctx).userId || renderId();
+  const userId_cookie = +nookies.get(ctx).userId;
+  const userId = userId_cookie || renderId();
   const file = await getFile("users.json");
   const visitCounts = file.find((user) => user.userId === userId)?.visitCounts + 1 || 1;
 
-  nookies.set(ctx, 'userId', userId);
+  if (!userId_cookie) {
+    nookies.set(ctx, 'userId', userId);
+  }
+
   fs.writeFile(
     "users.json",
     JSON.stringify(visitCounts === 1 ?

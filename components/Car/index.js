@@ -1,14 +1,18 @@
 import {useSelector} from "react-redux";
 import {useRouter} from 'next/router';
 
+import {selectCars} from 'bus/cars/selectors';
 import Item from "components/shared/Item";
 
 const Car = () => {
   const {query: {car}} = useRouter();
-  const {cars} = useSelector((state) => state);
+  const cars = useSelector(selectCars);
 
-  const CarJSX = cars.cars && (
-    <Item {...cars.cars.find(item => item.id === car)}/>
+  const CarJSX = cars && (
+    <Item
+      type={'cars'}
+      {...cars.find(item => item.id === car)}
+    />
   )
 
   return (

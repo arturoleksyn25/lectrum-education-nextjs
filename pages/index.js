@@ -9,10 +9,10 @@ export const getServerSideProps = withUser(async (ctx, user) => {
   const store = await initialDispatcher(ctx, initializeStore());
   store.dispatch(userActions.fillUser(user));
 
-  const initialReduxState = store.getState();
-
   return {
-    initialReduxState
+    initialReduxState: {
+      user
+    }
   }
 });
 

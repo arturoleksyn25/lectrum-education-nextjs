@@ -1,7 +1,7 @@
 import { types } from "./types";
 
 const initialState = {
-  cars: []
+  list: []
 };
 
 export const carsReducer = (
@@ -10,7 +10,7 @@ export const carsReducer = (
 ) => {
   switch (type) {
     case types.FILL_CARS:
-      return {...state, cars: payload};
+      return {...state, list: payload};
     default:
       return state;
   }
