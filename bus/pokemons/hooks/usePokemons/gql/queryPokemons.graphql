@@ -1,0 +1,5 @@
+query GET_POKEMONS {
+    pokemons(first: 10) {
+        name
+    }
+}

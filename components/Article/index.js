@@ -1,7 +1,11 @@
+//Core
 import {useSelector} from "react-redux";
 import {useRouter} from 'next/router';
 
+//Selectors
 import {selectNews} from 'bus/news/selectors';
+
+//Components
 import Item from "components/shared/Item";
 
 const Article = () => {

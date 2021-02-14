@@ -1,6 +1,10 @@
+//Core
 import {useSelector} from "react-redux";
 
+//Selectors
 import {selectDiscounts} from 'bus/discounts/selectors';
+
+//Components
 import Item from 'components/shared/Item';
 
 const Discounts = () => {

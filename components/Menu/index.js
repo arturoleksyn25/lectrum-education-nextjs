@@ -1,6 +1,8 @@
+//COre
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
+//Styles
 import styles from './menu.module.scss';
 
 const menuRoutes = [{
