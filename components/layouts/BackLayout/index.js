@@ -1,5 +1,7 @@
+//Core
 import {useRouter} from 'next/router';
 
+//Styles
 import styles from './layout.module.scss';
 
 const BackLayout = ({children}) => {

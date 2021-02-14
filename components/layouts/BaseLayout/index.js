@@ -1,5 +1,7 @@
+//Components
 import Menu from "components/Menu";
 
+//Styles
 import styles from './layout.module.scss';
 
 const BaseLayout = ({children}) => {

@@ -1,6 +1,10 @@
+//Core
 import {useSelector, useDispatch} from "react-redux";
 
+//Actions
 import {userActions} from 'bus/user/actions';
+
+//Other
 import {getImprovedStatus} from 'helpers/getImprovedStatus';
 
 const User = () => {

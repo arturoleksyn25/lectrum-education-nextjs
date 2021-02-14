@@ -1,8 +1,14 @@
+//Components
+import {BaseLayout} from "components/layouts";
+import {Discounts} from "components";
+
+//Actions
 import {discountsActions} from "bus/discounts/actions";
+
+//Selectors
 import {selectDiscounts} from "bus/discounts/selectors";
 
-import BaseLayout from "components/layouts/BaseLayout";
-import Discounts from "components/Discounts";
+//Other
 import {withUser} from "utils/withUser";
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";

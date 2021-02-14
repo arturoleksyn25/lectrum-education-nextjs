@@ -1,9 +1,16 @@
+//Components
+import {BaseLayout} from "components/layouts";
+import {News} from "components";
+
+//Actions
+import {newsActions} from "bus/news/actions";
+
+//Selectors
+import {selectNews} from "bus/news/selectors";
+
+//Other
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
-import {newsActions} from "bus/news/actions";
-import {selectNews} from "bus/news/selectors";
-import BaseLayout from "components/layouts/BaseLayout";
-import News from "components/News";
 import {withUser} from "utils/withUser";
 import {setCurrentDate} from "helpers/setCurrentDate";
 import {getFile} from "helpers/getFile";

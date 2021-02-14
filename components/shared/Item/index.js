@@ -1,5 +1,7 @@
+//Core
 import Link from "next/link";
 
+//Styles
 import styles from './item.module.scss';
 
 const Item = ({dateOfReceiving, content, id, type}) => {

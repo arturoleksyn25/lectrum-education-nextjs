@@ -1,9 +1,11 @@
+//Core
 import {useSelector} from "react-redux";
+import Link from "next/link";
 
+//Selectors
 import {selectNews} from 'bus/news/selectors';
 import {selectDiscounts} from 'bus/discounts/selectors';
 import {selectCars} from 'bus/cars/selectors';
-import Link from "next/link";
 
 const Dashboard = () => {
   const news = useSelector(selectNews);

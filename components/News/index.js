@@ -1,6 +1,10 @@
+//Core
 import {useSelector} from "react-redux";
 
+//Selectors
 import {selectNews} from 'bus/news/selectors';
+
+//Components
 import Item from 'components/shared/Item';
 
 const News = () => {

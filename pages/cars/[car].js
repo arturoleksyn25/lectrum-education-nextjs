@@ -1,10 +1,17 @@
+//Components
+import {BackLayout} from "components/layouts";
+import {Car} from "components";
+
+//Actions
 import {carsActions} from "bus/cars/actions";
+
+//Selectors
 import {selectCars} from "bus/cars/selectors";
+
+//Other
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
 import {getFile} from "helpers/getFile";
-import BackLayout from "components/layouts/BackLayout";
-import Car from "components/Car";
 import {setCurrentDate} from "helpers/setCurrentDate";
 import {redirectTo} from "helpers/redirectTo";
 import {withUser} from "utils/withUser";

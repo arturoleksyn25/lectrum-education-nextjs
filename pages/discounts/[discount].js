@@ -1,10 +1,17 @@
+//Components
+import {BackLayout} from "components/layouts";
+import {Discount} from "components";
+
+//Actions
 import {discountsActions} from "bus/discounts/actions";
+
+//Selectors
 import {selectDiscounts} from "bus/discounts/selectors";
+
+//Other
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
 import {getFile} from "helpers/getFile";
-import BackLayout from "components/layouts/BackLayout";
-import Discount from "components/Discount";
 import {setCurrentDate} from "helpers/setCurrentDate";
 import {redirectTo} from "helpers/redirectTo";
 import {withUser} from "utils/withUser";

@@ -1,7 +1,14 @@
+//Components
+import {BaseLayout} from "components/layouts";
+import {Cars} from "components";
+
+//Actions
 import {carsActions} from "bus/cars/actions";
+
+//Selectors
 import {selectCars} from "bus/cars/selectors";
-import BaseLayout from "components/layouts/BaseLayout";
-import Cars from "components/Cars";
+
+//Other
 import {withUser} from "utils/withUser";
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
