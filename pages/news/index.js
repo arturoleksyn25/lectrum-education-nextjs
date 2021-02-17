@@ -13,7 +13,7 @@ import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
 import {withUser} from "utils/withUser";
 import {setCurrentDate} from "helpers/setCurrentDate";
-import {getFile} from "helpers/getFile";
+import {getFile} from "helpers/fileHelper";
 
 export const getServerSideProps = withUser(async (ctx) => {
   const store = await initialDispatcher(ctx, initializeStore());

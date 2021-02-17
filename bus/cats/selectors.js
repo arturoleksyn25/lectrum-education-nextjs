@@ -1,0 +1,1 @@
+export const selectCatsList = (state) => state.cats.list;
