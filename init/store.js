@@ -14,20 +14,36 @@ import { createLogger } from 'redux-logger';
 // Instruments
 import { rootReducer } from './rootReducer';
 import { rootSaga } from './rootSaga';
+import { verifyBrowser } from "helpers/verifyBrowser";
+import { verifyEnvironment } from "helpers/verifyEnvironment";
+import { serverReduxLogger } from "helpers/serverReduxLogger";
+
 
 let store;
 
 const bindMiddleware = (middleware) => {
-  if(process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
-    middleware.push(
-      createLogger({
-        duration: true,
-        timestamp: true,
-        collapsed: true,
-        diff: true,
-      })
-    )
+  const {
+    isDevelopment
+  } = verifyEnvironment();
+  const isBrowser = verifyBrowser();
+
+  if(isDevelopment) {
+    if (isBrowser) {
+      middleware.push(
+        createLogger({
+          duration: true,
+          timestamp: true,
+          collapsed: true,
+          diff: true,
+        })
+      )
+    } else {
+      middleware.push(
+        serverReduxLogger
+      )
+    }
   }
+
 
   return composeWithDevTools(applyMiddleware(...middleware));
 }

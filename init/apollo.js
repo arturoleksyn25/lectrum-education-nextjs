@@ -1,5 +1,6 @@
 // Core
 import { useMemo } from 'react';
+import { onError } from "@apollo/client/link/error";
 import {
   ApolloClient,
   ApolloLink,
@@ -10,9 +11,16 @@ import { setContext } from '@apollo/client/link/context';
 import fetch from 'isomorphic-unfetch';
 import apolloLogger from 'apollo-link-logger';
 
-let apolloClient;
+// Other
+import { verifyBrowser } from "helpers/verifyBrowser";
+import { verifyEnvironment } from "helpers/verifyEnvironment";
+import handlePostLog from 'helpers/handlePostLog';
 
-const isBrowser = typeof window !== 'undefined';
+let apolloClient;
+const logUrl = "/api/logs/graphql";
+
+const isBrowser = verifyBrowser();
+const { isDevelopment, isProduction } = verifyEnvironment();
 
 function createApolloClient(context) {
   const httpLink = createHttpLink({
@@ -39,7 +47,21 @@ function createApolloClient(context) {
     ];
 
     if (isBrowser) {
-      links.unshift(apolloLogger);
+      if (isDevelopment) {
+        links.unshift(apolloLogger);
+      }
+      if (isProduction) {
+        const linkError = onError(({ graphQLErrors, networkError }) => {
+          if (graphQLErrors)
+            graphQLErrors.map((error) =>
+              handlePostLog(logUrl, error)
+            )
+          if (networkError) {
+            handlePostLog(logUrl, networkError);
+          }
+        });
+        links.unshift(linkError);
+      }
     }
 
     link = ApolloLink.from(links);

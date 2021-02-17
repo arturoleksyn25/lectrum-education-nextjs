@@ -11,7 +11,7 @@ import {selectDiscounts} from "bus/discounts/selectors";
 //Other
 import {initialDispatcher} from "init/initialDispatcher";
 import {initializeStore} from "init/store";
-import {getFile} from "helpers/getFile";
+import {getFile} from "helpers/fileHelper";
 import {setCurrentDate} from "helpers/setCurrentDate";
 import {redirectTo} from "helpers/redirectTo";
 import {withUser} from "utils/withUser";

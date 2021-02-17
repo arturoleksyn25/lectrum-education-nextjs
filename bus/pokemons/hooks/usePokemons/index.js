@@ -6,7 +6,7 @@ import queryPokemons from './gql/queryPokemons.graphql';
 
 export const usePokemons = () => {
   const { data } = useQuery(queryPokemons, {
-    fetchPolicy: 'cach-only',
+    fetchPolicy: 'cache-only',
   });
 
   return {

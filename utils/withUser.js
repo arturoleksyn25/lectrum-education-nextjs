@@ -1,9 +1,8 @@
 import nookies from "nookies";
-import fs from 'fs';
 
 import {parseUserType} from 'helpers/parseUserType';
 import {renderId} from "helpers/renderId";
-import {getFile} from "helpers/getFile";
+import {getFile, setFile} from "helpers/fileHelper";
 
 export const withUser = (getData) => async (ctx) => {
   const userId_cookie = +nookies.get(ctx).userId;
@@ -15,13 +14,9 @@ export const withUser = (getData) => async (ctx) => {
     nookies.set(ctx, 'userId', userId);
   }
 
-  fs.writeFile(
-    "users.json",
-    JSON.stringify(visitCounts === 1 ?
-      [...file, {userId, visitCounts}]
-      : file.map(user => user.userId === userId ? {userId, visitCounts} : user)),
-    () => {}
-  )
+  await setFile("users.json", visitCounts === 1 ?
+    [...file, {userId, visitCounts}]
+    : file.map(user => user.userId === userId ? {userId, visitCounts} : user))
 
   const user = {
     userId,
