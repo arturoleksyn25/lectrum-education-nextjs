@@ -1,5 +1,6 @@
 //Core
 import cookie from 'cookie';
+import klaw from 'klaw';
 
 //Other
 import {getFile, setFile} from "helpers/fileHelper";
@@ -10,29 +11,40 @@ export default async (req, res) => {
     method,
     query,
   } = req
-  const {userId} = cookie.parse(req.headers.cookie);
-  const logUrl = "logs/graphql/storage.json";
-  const file = await getFile(logUrl);
+  const cookies = cookie.parse(req.headers.cookie || '');
+  const logUrl = "logs/graphql";
 
   switch (method) {
     case 'POST':
       const log = {
         created: new Date().toISOString(),
-        userId,
+        userId: "userId" in cookies ? cookies.userId : "",
         userAgent: req.headers['user-agent'],
         logId: renderId(),
         payload: req.body
       }
 
-      await setFile(logUrl, [...file, log])
+      await setFile(`${logUrl}/${log.logId}.json`, log)
       res.status(200).json({ name: 'New log was successfully created', log});
       break;
     case 'GET':
+      const files = [];
       if (query?.userId) {
-        res.status(200).json({ name: 'GraphQL Logs File', file: file.filter(item => +item.userId === +query.userId)});
+        for await (const file of klaw(logUrl)) {
+          const data = await getFile(file.path);
+          if (!Array.isArray(data) && +data.userId === +query?.userId) {
+            files.push(data)
+          }
+        }
       } else {
-        res.status(200).json({ name: 'GraphQL Logs File', file});
+        for await (const file of klaw(logUrl)) {
+          const data = await getFile(file.path);
+          if (!Array.isArray(data)) {
+            files.push(data)
+          }
+        }
       }
+      res.status(200).json({ name: 'GraphQL Logs File', files});
       break;
     default:
       break;

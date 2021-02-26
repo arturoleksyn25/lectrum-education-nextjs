@@ -76,5 +76,10 @@ module.exports = withPlugins([
     }
 
     return config;
+  },
+  publicRuntimeConfig: {
+    JAVA_SCRIPT_LOADING_DELAY: 3500,
+    ANDROID_VERSION_FOR_DELAY: 8,
+    IOS_VERSION_FOR_DELAY: 12.5,
   }
 });

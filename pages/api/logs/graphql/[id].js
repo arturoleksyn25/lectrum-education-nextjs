@@ -8,13 +8,12 @@ export default async (req, res) => {
   } = req
 
   if (method === 'GET') {
-    const file = await getFile("logs/graphql/storage.json");
-    const log = file.find((item) => +item.logId === +id);
+    const log = await getFile(`logs/graphql/${id}.json`);
 
-    if (log) {
-      res.status(200).json({ name: `GraphQL Log id${id} File`, log});
-    } else {
+    if (Array.isArray(log)) {
       res.status(404).send('Not found');
+    } else {
+      res.status(200).json({ name: `GraphQL Log id${id} File`, log});
     }
   }
 }

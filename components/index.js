@@ -11,3 +11,4 @@ export {default as News} from './News';
 export {default as Pokemons} from './Pokemons';
 export {default as User} from './User';
 export {default as Fonts} from './Fonts';
+export {default as Loading} from './Loading';
