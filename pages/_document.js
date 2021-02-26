@@ -1,23 +1,32 @@
 //Core
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Main } from 'next/document'
 
 //Components
-import {Fonts} from 'components'
+import {Fonts} from 'components';
+
+//Other
+import { NextHeadCustom, NextScriptCustom } from 'init/document';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+    const initialProps = await Document.getInitialProps(ctx);
+    const userAgent = ctx.req && ctx.req.headers['user-agent'];
+
+    return {
+      ...initialProps,
+      userAgent
+    };
   }
+
 
   render() {
     return (
       <Html>
-        <Head />
+        <NextHeadCustom/>
         <Fonts/>
         <body>
         <Main />
-        <NextScript />
+        <NextScriptCustom />
         </body>
       </Html>
     )

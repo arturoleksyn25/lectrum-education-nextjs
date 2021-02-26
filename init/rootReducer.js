@@ -6,6 +6,7 @@ import { newsReducer as news } from "bus/news/reducer";
 import { carsReducer as cars } from "bus/cars/reducer";
 import { asteroidsReducer as asteroids } from "bus/asteroids/reducer";
 import { catsReducer as cats } from "bus/cats/reducer";
+import { commonReducer as common } from "bus/common/reducer";
 
 
 export const rootReducer = combineReducers({
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   news,
   cars,
   asteroids,
-  cats
+  cats,
+  common
 });
