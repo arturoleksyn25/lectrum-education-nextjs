@@ -29,6 +29,7 @@ module.exports = withPlugins([
       'readable-stream': path.join(__dirname, './node_modules/readable-stream'),
       inherits: path.join(__dirname, './node_modules/inherits'),
       'safe-buffer': path.join(__dirname, './node_modules/safe-buffer'),
+      'symbol-observable': path.join(__dirname, './node_modules/symbol-observable'),
     };
 
     config.resolve.alias = {
